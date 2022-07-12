@@ -30,6 +30,15 @@ def mainWindow():
             ),
           ],
           [
+            sg.Text(
+              "Changed and new files:",
+              expand_x=True,
+              background_color=backgroundColor,
+              text_color=textColor,
+              font="Arial 16"
+            )
+          ],
+          [
             sg.Listbox(
               [],
               key="-REPOFILES-",
@@ -72,6 +81,15 @@ def mainWindow():
               text_color=textColor,
               key="-REPONAME-",
               font="Arial 20"
+            )
+          ],
+          [
+            sg.Text(
+              "Commits:",
+              expand_x=True,
+              background_color=backgroundColor,
+              text_color=textColor,
+              font="Arial 16"
             )
           ],
           [
@@ -170,6 +188,70 @@ def newRepoWindow():
   ]
   return sg.Window(
     "New Repo",
+    layout,
+    background_color=backgroundColor,
+    location=(100, 100),
+    element_justification="center"
+  )
+
+def cloneRepo():
+  layout = [
+    [
+      sg.Text(
+        "Clone Repo",
+        font="Arial 22",
+        text_color=textColor,
+        background_color=backgroundColor
+      ),
+    ],
+    [
+      sg.Text(
+        "SSH:",
+        font="Arial 14",
+        text_color=textColor,
+        background_color=backgroundColor
+      ),
+      sg.In(
+        font="Arial 14",
+        text_color=textColor,
+        background_color=elementColor,
+        key="-REPOURL-",
+        border_width=0,
+        expand_x=True,
+        size=(20, 1)
+      )
+    ],
+    [
+      sg.FolderBrowse(
+        "Location",
+        button_color=(textColor,elementColor),
+        target="-LOCATION-",
+        font="Arial 14"
+      ),
+      sg.In(
+        expand_x=True,
+        text_color=textColor,
+        key="-LOCATION-",
+        change_submits=True,
+        readonly=True,
+        border_width=0,
+        size=(20, 1),
+        font="Arial 14",
+        disabled_readonly_background_color=elementColor
+      )
+    ],
+    [
+      sg.Button(
+        "Create",
+        button_color=(textColor,elementColor),
+        key="-CREATE-",
+        font="Arial 14",
+        expand_x=True
+      )
+    ]
+  ]
+  return sg.Window(
+    "Clone Repo",
     layout,
     background_color=backgroundColor,
     location=(100, 100),
