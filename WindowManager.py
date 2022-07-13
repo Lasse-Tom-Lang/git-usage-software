@@ -106,11 +106,59 @@ def mainWindow():
               font="Arial 14",
               size=(40, 10)
             )
+          ],
+          [
+            sg.In(
+              expand_x=True,
+              text_color=textColor,
+              key="-EMAILADRESS-",
+              border_width=0,
+              font="Arial 18",
+              background_color=elementColor,
+              size=(25, 1),
+              change_submits=True
+            ),
+            sg.Button(
+              "Change",
+              button_color=(textColor,elementColor),
+              key="-CHANGEEMAIL-",
+              font="Arial 14",
+              expand_x=True,
+              disabled=True
+            )
           ]
         ],
         background_color=backgroundColor,
         expand_x=True,
         expand_y=True
+      )
+    ],
+    [
+      sg.In(
+        expand_x=True,
+        text_color=textColor,
+        key="-COMMITMESSAGE-",
+        disabled=True,
+        border_width=0,
+        font="Arial 18",
+        background_color=elementColor,
+        disabled_readonly_background_color=elementColor
+      ),
+      sg.Button(
+        "Commit",
+        button_color=(textColor,elementColor),
+        key="-COMMIT-",
+        font="Arial 14",
+        disabled=True,
+        expand_x=True
+      ),
+      sg.Button(
+        "Push",
+        button_color=(textColor,elementColor),
+        key="-PUSH-",
+        font="Arial 14",
+        disabled=True,
+        expand_x=True
       )
     ]
   ]
