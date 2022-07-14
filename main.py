@@ -16,6 +16,7 @@ def main():
       commits = [elements.message for elements in repo.iter_commits('--all', max_count=100, since='10.days.ago')]
       mainWindow["-COMMITS-"].update(commits)
       mainWindow["-REPOFILES-"].update(changedFiles)
+      mainWindow["-BRANCHE-"].update(values["-BRANCHE-"], values=[elements for elements in repo.branches])
     match event:
       case sg.WIN_CLOSED:
         break
@@ -93,6 +94,24 @@ def main():
           origin.pull()
         except:
           WindowManager.errorWindow("Can't pull from repo")
+      case "-BRANCHE-":
+        try:
+          repo.git.checkout(values["-BRANCHE-"])
+        except:
+          pass
+      case "-ADDBRANCHE-":
+        brancheWindow = WindowManager.addBranche()
+        while True:
+          event, values = brancheWindow.read()
+          match event:
+            case sg.WIN_CLOSED:
+              break
+            case "-CREATE-":
+              if values["-NAME-"] != "":
+                repo.git.checkout("-b", values["-NAME-"])
+                mainWindow["-BRANCHE-"].update(values["-NAME-"], values=[elements for elements in repo.branches])
+                break
+        brancheWindow.close()
   mainWindow.close()
 
 if __name__ == "__main__":

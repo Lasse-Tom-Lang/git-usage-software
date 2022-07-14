@@ -128,6 +128,26 @@ def mainWindow():
             )
           ],
           [
+            sg.Combo(
+              [],
+              expand_x=True,
+              background_color=backgroundColor,
+              text_color=textColor,
+              button_background_color=elementColor,
+              button_arrow_color=textColor,
+              key="-BRANCHE-",
+              font="Arial 16",
+              enable_events=True
+            ),
+            sg.Button(
+              "Add branche",
+              button_color=(textColor,elementColor),
+              key="-ADDBRANCHE-",
+              font="Arial 14",
+              expand_x=True
+            )
+          ],
+          [
             sg.Button(
               "Pull",
               button_color=(textColor,elementColor),
@@ -308,6 +328,45 @@ def cloneRepo():
   ]
   return sg.Window(
     "Clone Repo",
+    layout,
+    background_color=backgroundColor,
+    location=(100, 100),
+    element_justification="center"
+  )
+
+def addBranche():
+  layout = [
+    [
+      sg.Text(
+        "Add branche",
+        font="Arial 22",
+        text_color=textColor,
+        background_color=backgroundColor
+      )
+    ],
+    [
+      sg.In(
+        expand_x=True,
+        text_color=textColor,
+        key="-NAME-",
+        border_width=0,
+        size=(20, 1),
+        font="Arial 14",
+        background_color=elementColor
+      )
+    ],
+    [
+      sg.Button(
+        "Create branche",
+        button_color=(textColor,elementColor),
+        key="-CREATE-",
+        font="Arial 14",
+        expand_x=True
+      )
+    ]
+  ]
+  return sg.Window(
+    "Add branche",
     layout,
     background_color=backgroundColor,
     location=(100, 100),
