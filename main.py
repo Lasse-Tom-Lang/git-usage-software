@@ -11,15 +11,9 @@ def main():
   while True:
     event, values = mainWindow.read(5000)
     if repo != None:
-      changedFiles = []
-      commits = []
-      for item in repo.index.diff(None):
-        changedFiles.append(item.a_path)
-      for elements in repo.untracked_files:
-        if elements not in [".DS_Store", ".gitignore"]:
-          changedFiles.append(elements)
-      for elements in repo.iter_commits('--all', max_count=100, since='10.days.ago'):
-        commits.append(elements.message)
+      changedFiles = [item.a_path for item in repo.index.diff(None)]
+      changedFiles.append([elements for elements in repo.untracked_files if elements not in [".DS_Store", ".gitignore"]])
+      commits = [elements.message for elements in repo.iter_commits('--all', max_count=100, since='10.days.ago')]
       mainWindow["-COMMITS-"].update(commits)
       mainWindow["-REPOFILES-"].update(changedFiles)
     match event:
@@ -82,8 +76,23 @@ def main():
                   WindowManager.errorWindow("Can't clone repo.")
         cloneWindow.close()
       case "-COMMIT-":
-        if values["-COMMITMESSAGE-"] != "":
-          pass
+        if values["-COMMITMESSAGE-"] != "" and len(changedFiles) != 0:
+          for elements in changedFiles:
+            repo.git.add(elements)
+          repo.git.commit('-m', values["-COMMITMESSAGE-"], author=repo.config_reader().get_value("user", "email"))
+          mainWindow["-COMMITMESSAGE-"].update("")
+      case "-PUSH-":
+        try:
+          origin = repo.remote('origin')
+          origin.push()
+        except:
+          WindowManager.errorWindow("Can't push to repo")
+      case "-PULL-":
+        try:
+          origin = repo.remote('origin')
+          origin.pull()
+        except:
+          WindowManager.errorWindow("Can't pull from repo")
   mainWindow.close()
 
 if __name__ == "__main__":

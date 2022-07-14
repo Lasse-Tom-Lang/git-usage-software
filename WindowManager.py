@@ -126,6 +126,15 @@ def mainWindow():
               expand_x=True,
               disabled=True
             )
+          ],
+          [
+            sg.Button(
+              "Pull",
+              button_color=(textColor,elementColor),
+              key="-PULL-",
+              font="Arial 14",
+              expand_x=True
+            )
           ]
         ],
         background_color=backgroundColor,
@@ -157,7 +166,6 @@ def mainWindow():
         button_color=(textColor,elementColor),
         key="-PUSH-",
         font="Arial 14",
-        disabled=True,
         expand_x=True
       )
     ]
@@ -290,7 +298,7 @@ def cloneRepo():
     ],
     [
       sg.Button(
-        "Create",
+        "Clone",
         button_color=(textColor,elementColor),
         key="-CREATE-",
         font="Arial 14",
