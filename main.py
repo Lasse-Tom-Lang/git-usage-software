@@ -1,9 +1,6 @@
-from faulthandler import disable
-from tkinter import E
 import PySimpleGUI as sg
 import WindowManager
 import git
-import os
 
 def main():
   repo = None
