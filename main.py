@@ -10,7 +10,7 @@ def main():
     if repo != None:
       changedFiles = [item.a_path for item in repo.index.diff(None)]
       changedFiles.append([elements for elements in repo.untracked_files if elements not in [".DS_Store", ".gitignore"]])
-      commits = [elements.message for elements in repo.iter_commits('--all', max_count=100, since='10.days.ago')]
+      commits = [elements.message for elements in repo.iter_commits('--all', max_count=100)]
       mainWindow["-COMMITS-"].update(commits)
       mainWindow["-REPOFILES-"].update(changedFiles)
       mainWindow["-BRANCHE-"].update(values["-BRANCHE-"], values=[elements for elements in repo.branches])
